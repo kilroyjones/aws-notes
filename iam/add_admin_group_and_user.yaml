@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Create a new IAM group with AdministratorAccess policy and add a new user to the group
+
+Resources:
+  AdminGroup:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: "Administrators"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  AdminUser:
+    Type: "AWS::IAM::User"
+    Properties:
+      UserName: "admin"
+
+  AddUserToGroup:
+    Type: "AWS::IAM::UserToGroupAddition"
+    Properties:
+      GroupName: "Administrators"
+      Users:
+        - Ref: "AdminUser"
